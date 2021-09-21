@@ -57,9 +57,10 @@ class Arbre:
 
 def affiche(T):
    if T != None:
-      return (T.get_valeur(),affiche(T.get_gauche()),affiche(T.get_droit()))
+      return (T.get_valeur(),affiche(T.get_gauche()),affiche(T.get_droit()),affiche(T.get_haut()),affiche(T.get_bas()))
 
 Mamatrice = [[0 for i in range(5)] for i in range(5)]
+profondeur = 5
 
 Colonne = len(Mamatrice)
 Ligne = len(Mamatrice[0])
@@ -75,18 +76,30 @@ for y in range(Colonne):
    print()
 
 
+racine = Arbre(Mamatrice[0][0])
 
-def Create_arbre(Matrice, depart):
-   racine = Arbre(depart)
-   if depart + 10 < 44:
-       racine.insert_droit(depart + 10)
-   if depart - 10 > 0:
-       racine.insert_gauche(depart - 10)
-   if (depart + 1) % 10 < 5:
-       racine.insert_bas(depart + 1)
-   if depart % 10 > 0:
-       racine.insert_haut(depart - 1)
+def Create_arbre(value, profondeur, node):
+    if profondeur > 0:
+        if value + 10 < 44:
+           node.insert_droit(value + 10)
+           new_node = node.get_droit()
+           Create_arbre(value + 10, profondeur - 1, new_node)
+        if value - 10 > 0:
+           node.insert_gauche(value - 10)
+           new_node = node.get_gauche()
+           Create_arbre(value - 10, profondeur - 1, new_node)
+        if (value + 1) % 10 < 5:
+           node.insert_bas(value + 1)
+           new_node = node.get_bas()
+           Create_arbre(value + 1, profondeur - 1, new_node)
+        if value % 10 > 0:
+           node.insert_haut(value - 1)
+           new_node = node.get_haut()
+           Create_arbre(value - 1, profondeur - 1, new_node)
    
+Create_arbre(Mamatrice[0][0], 2, racine)
+
+print(racine.get_droit().get_valeur())
 
 
 
