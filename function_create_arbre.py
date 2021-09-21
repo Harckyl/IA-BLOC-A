@@ -76,30 +76,40 @@ for y in range(Colonne):
    print()
 
 
+
+
 racine = Arbre(Mamatrice[0][0])
 
+
+#fonction récursive : on choisi le nombre de récursions avec profondeur
+#value = la valeur du node
+#node = noeud, au départ, c'est la racine
 def Create_arbre(value, profondeur, node):
     if profondeur > 0:
+       #déplacement vers la droite
         if value + 10 < 44:
            node.insert_droit(value + 10)
            new_node = node.get_droit()
            Create_arbre(value + 10, profondeur - 1, new_node)
-        if value - 10 > 0:
+       #déplacement vers la gauche
+        if value - 10 >= 0:
            node.insert_gauche(value - 10)
            new_node = node.get_gauche()
            Create_arbre(value - 10, profondeur - 1, new_node)
+       #déplacement vers la bas
         if (value + 1) % 10 < 5:
            node.insert_bas(value + 1)
            new_node = node.get_bas()
            Create_arbre(value + 1, profondeur - 1, new_node)
+       #déplacement vers la haut
         if value % 10 > 0:
            node.insert_haut(value - 1)
            new_node = node.get_haut()
            Create_arbre(value - 1, profondeur - 1, new_node)
    
-Create_arbre(Mamatrice[0][0], 2, racine)
+Create_arbre(Mamatrice[0][0], 3, racine)
 
-print(racine.get_droit().get_valeur())
+print(racine.get_droit().get_gauche().get_valeur())
 
 
 
