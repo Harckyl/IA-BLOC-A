@@ -53,6 +53,29 @@ class Arbre:
    def get_bas(self):
       return self.enfant_bas
 
+   def Create_arbre(self, value, profondeur):
+    if profondeur > 0:
+       #déplacement vers la droite
+        if value + 10 <= 44:
+           self.insert_droit(value + 10)
+           new_node = self.get_droit()
+           new_node.Create_arbre(value + 10, profondeur - 1)
+       #déplacement vers la gauche
+        if value - 10 >= 0:
+           self.insert_gauche(value - 10)
+           new_node = self.get_gauche()
+           new_node.Create_arbre(value - 10, profondeur - 1)
+       #déplacement vers la bas
+        if (value + 1) % 10 < 5:
+           self.insert_bas(value + 1)
+           new_node = self.get_bas()
+           new_node.Create_arbre(value + 1, profondeur - 1)
+       #déplacement vers la haut
+        if value % 10 > 0:
+           self.insert_haut(value - 1)
+           new_node = self.get_haut()
+           new_node.Create_arbre(value - 1, profondeur - 1)
+
 
 
 def affiche(T):
@@ -84,32 +107,11 @@ racine = Arbre(Mamatrice[0][0])
 #fonction récursive : on choisi le nombre de récursions avec profondeur
 #value = la valeur du node
 #node = noeud, au départ, c'est la racine
-def Create_arbre(value, profondeur, node):
-    if profondeur > 0:
-       #déplacement vers la droite
-        if value + 10 < 44:
-           node.insert_droit(value + 10)
-           new_node = node.get_droit()
-           Create_arbre(value + 10, profondeur - 1, new_node)
-       #déplacement vers la gauche
-        if value - 10 >= 0:
-           node.insert_gauche(value - 10)
-           new_node = node.get_gauche()
-           Create_arbre(value - 10, profondeur - 1, new_node)
-       #déplacement vers la bas
-        if (value + 1) % 10 < 5:
-           node.insert_bas(value + 1)
-           new_node = node.get_bas()
-           Create_arbre(value + 1, profondeur - 1, new_node)
-       #déplacement vers la haut
-        if value % 10 > 0:
-           node.insert_haut(value - 1)
-           new_node = node.get_haut()
-           Create_arbre(value - 1, profondeur - 1, new_node)
-   
-Create_arbre(Mamatrice[0][0], 3, racine)
 
-print(racine.get_droit().get_gauche().get_valeur())
+   
+racine.Create_arbre(Mamatrice[4][0], 8)
+
+print(racine.get_bas().get_haut().get_valeur())
 
 
 
