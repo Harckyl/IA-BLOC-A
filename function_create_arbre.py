@@ -111,7 +111,7 @@ racine = Arbre(Mamatrice[0][0])
    
 racine.Create_arbre(Mamatrice[4][0], 8)
 
-print(racine.get_bas().get_haut().get_valeur())
+
 
 
 
