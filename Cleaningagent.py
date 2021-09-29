@@ -10,7 +10,6 @@ class cleaningAgent:
     def observeEnvironment(self):
         env.environment.getChoice(self.position)
 
-
     def testing(self, testingvariable):
         self.test = self.test + testingvariable
         print(self.test)

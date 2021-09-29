@@ -53,28 +53,31 @@ class Arbre:
    def get_bas(self):
       return self.enfant_bas
 
-   def Create_arbre(self, value, profondeur):
+   def Create_arbre(self, profondeur):
     if profondeur > 0:
        #déplacement vers la droite
-        if value + 10 <= 44:
-           self.insert_droit(value + 10)
+        if self.get_valeur() + 10 <= 44:
+           self.insert_droit(self.get_valeur() + 10)
            new_node = self.get_droit()
-           new_node.Create_arbre(value + 10, profondeur - 1)
+           new_node.Create_arbre(profondeur - 1)
        #déplacement vers la gauche
-        if value - 10 >= 0:
-           self.insert_gauche(value - 10)
+        if self.get_valeur() - 10 >= 0:
+           self.insert_gauche(self.get_valeur() - 10)
            new_node = self.get_gauche()
-           new_node.Create_arbre(value - 10, profondeur - 1)
+           new_node.Create_arbre(profondeur - 1)
        #déplacement vers la bas
-        if (value + 1) % 10 < 5:
-           self.insert_bas(value + 1)
+        if (self.get_valeur() + 1) % 10 < 5:
+           self.insert_bas(self.get_valeur() + 1)
            new_node = self.get_bas()
-           new_node.Create_arbre(value + 1, profondeur - 1)
+           new_node.Create_arbre(profondeur - 1)
        #déplacement vers la haut
-        if value % 10 > 0:
-           self.insert_haut(value - 1)
+        if self.get_valeur() % 10 > 0:
+           self.insert_haut(self.get_valeur() - 1)
            new_node = self.get_haut()
-           new_node.Create_arbre(value - 1, profondeur - 1)
+           new_node.Create_arbre(profondeur - 1)
+   
+
+
 
 
 
@@ -96,7 +99,6 @@ for y in range(Colonne):
    for x in range(Ligne):
        Mamatrice[x][y] = int(str(x) + str(y))
        print (Mamatrice[x][y], end = " ")
-   print()
 
 
 
@@ -109,10 +111,10 @@ racine = Arbre(Mamatrice[0][0])
 #node = noeud, au départ, c'est la racine
 
    
-racine.Create_arbre(Mamatrice[4][0], 8)
+racine.Create_arbre(8)
 
 
 
-
+print(affiche(racine))
 
 
