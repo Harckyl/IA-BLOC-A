@@ -10,40 +10,40 @@ class Arbre:
    def insert_gauche(self, valeur, parent):
       if self.enfant_gauche == None:
          self.enfant_gauche = Arbre(valeur)
-         self.enfant_gauche.parent = Arbre(parent)
+         self.enfant_gauche.parent = self
       else:
          new_node = Arbre(valeur)
-         new_node.parent = Arbre(parent)
+         new_node.parent = self
          new_node.enfant_gauche = self.enfant_gauche
          self.enfant_gauche = new_node
 
    def insert_droit(self, valeur, parent):
       if self.enfant_droit == None:
          self.enfant_droit = Arbre(valeur)
-         self.enfant_droit.parent = Arbre(parent)
+         self.enfant_droit.parent = self
       else:
          new_node = Arbre(valeur)
-         new_node.parent = Arbre(parent)
+         new_node.parent = self
          new_node.enfant_droit = self.enfant_droit
          self.enfant_droit = new_node
 
    def insert_haut(self, valeur, parent):
       if self.enfant_haut == None:
          self.enfant_haut = Arbre(valeur)
-         self.enfant_haut.parent = Arbre(parent)
+         self.enfant_haut.parent = self
       else:
          new_node = Arbre(valeur)
-         new_node.parent = Arbre(parent)
+         new_node.parent = self
          new_node.enfant_haut = self.enfant_haut
          self.enfant_haut = new_node
 
    def insert_bas(self, valeur, parent):
       if self.enfant_bas == None:
          self.enfant_bas = Arbre(valeur)
-         self.enfant_bas.parent = Arbre(parent)
+         self.enfant_bas.parent = self
       else:
          new_node = Arbre(valeur)
-         new_node.parent = Arbre(parent)
+         new_node.parent = self
          new_node.enfant_bas = self.enfant_bas
          self.enfant_bas = new_node
 
@@ -135,6 +135,6 @@ racine.Create_arbre(8)
 
 
 
-print(racine.get_bas().get_bas().get_haut().get_parent().get_valeur())
+print(racine.get_bas().get_bas().get_haut().get_parent().get_droit().get_valeur())
 
 
