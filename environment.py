@@ -10,26 +10,16 @@ class roomsThread(threading.Thread):
 		self.total=0
 		self.choices = ["b", "bp", "p", "p", "p", "p"]
 
-	def run(self):
+	def run(self, rooms):
 		while self.total < self.high:
 			self.total+=1
-			timeToWait = random.randrange(5,12)
+			timeToWait = random.randrange(1,2)
 			time.sleep(timeToWait)
 			rooms[random.randrange(0,4),random.randrange(0,4)] = random.choice(self.choices)
-			res = self.getChoice(11)
+			res = self.getChoice(11, rooms)
 			print(rooms)
 
-	def getChoice(self, position):
+	def getChoice(self, position, rooms):
 		return rooms[int(position / 10), position % 10]
 
 
-rooms = np.full((5,5),"v")
-print(rooms)
-maxRep = 5
-environment = roomsThread(maxRep)
-environment.start() # This actually causes the thread to run
-environment.join()  # This waits until the thread has completed
-
-
-
-print("DONE")

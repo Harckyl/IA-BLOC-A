@@ -54,7 +54,7 @@ def Astar(env, start, target):
 
         # Pinpoint neighbours
         neighbours = []
-        for newPosition in [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]: # All 8 possible neighbours
+        for newPosition in [(-1, 0),(0, -1), (0, 1), (1, 0)]: # All 8 possible neighbours
 
             # Get node position
             nodePosition = (currentNode.pos[0] + newPosition[0], currentNode.pos[1] + newPosition[1])
