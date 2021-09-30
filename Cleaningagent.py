@@ -4,23 +4,27 @@ import BFS
 import numpy as np
 import Astar
 import function_create_arbre as create_arbre
+import time
 
 class cleaningAgent(threading.Thread):
-    def __init__(self):
+    def __init__(self,choix):
         super(cleaningAgent, self).__init__()
         self.test = 2
         self.position = 0
+        self.choix = choix
 
     def observeEnvironment(self):
         env.environment.getChoice(self.position)
     
-    def run(self, choix):
-            if(choix == 1):
+    def run(self):
+        while True:
+            if(self.choix == 1):
                 test = BFS.BFSalgorithm()
                 root = create_arbre.Arbre(self.position)
                 root.Create_arbre(8)
                 print(test.explorer(root,Mamatrice,rooms))
-            
+            time.sleep(1)
+        
 		
 
     
@@ -43,11 +47,11 @@ for y in range(Colonne):
 
 rooms = np.full((5,5),"v")
 print(rooms)
-maxRep = 5
-#environment = env.roomsThread(maxRep)
-#environment.run(rooms) # This actually causes the thread to run
-#agent = cleaningAgent()
-#agent.run(1)
+maxRep = 30
+environment = env.roomsThread(maxRep,rooms)
+environment.start() # This actually causes the thread to run
+agent = cleaningAgent(1)
+agent.start()
 #test = threading.Thread(target=env.roomsThread.run, args=[rooms])
 #test.start()
 print(Astar.Astar(rooms, (0,0), (4,4))[1])

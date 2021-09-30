@@ -1,8 +1,7 @@
 import function_create_arbre as createarbre
 
 class BFSalgorithm:
-    def __init__(self):
-        print("donothing")
+    
     
     def explorer(self, StartingNode,matrixcoordonnee,matrixpoussiere):
         bfsqueue = []
@@ -13,21 +12,20 @@ class BFSalgorithm:
             #print("valeur is ",openednode.get_valeur())
 
             if self.verification(openednode.get_valeur(),matrixpoussiere):
-                print("found")
                 print(openednode.get_valeur())
                 return self.get_deplacement(openednode).get_valeur()
-            
-            if openednode.enfant_gauche.get_valeur() != None:
-                bfsqueue.insert(0,openednode.get_gauche())
-           
-            if openednode.enfant_droit.get_valeur() != None:
-                bfsqueue.insert(0,openednode.get_droit())
-            
-            if openednode.enfant_bas.get_valeur() != None:
-                bfsqueue.insert(0,openednode.get_bas())
-            
-            if openednode.enfant_haut.get_valeur() != None:
-                bfsqueue.insert(0,openednode.get_haut())
+            if openednode.enfant_gauche != None:
+                if openednode.enfant_gauche.get_valeur() != None:
+                    bfsqueue.insert(0,openednode.get_gauche())
+            if openednode.enfant_droit != None:
+                if openednode.enfant_droit.get_valeur() != None:
+                    bfsqueue.insert(0,openednode.get_droit())
+            if openednode.enfant_bas != None:
+                if openednode.enfant_bas.get_valeur() != None:
+                    bfsqueue.insert(0,openednode.get_bas())
+            if openednode.enfant_haut != None:
+                if openednode.enfant_haut.get_valeur() != None:
+                    bfsqueue.insert(0,openednode.get_haut())
 
     def get_deplacement(self,node):
         if node.get_parent() != None:
