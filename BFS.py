@@ -15,7 +15,7 @@ class BFSalgorithm:
             if self.verification(openednode.get_valeur(),matrixpoussiere):
                 print("found")
                 print(openednode.get_valeur())
-                return self.get_deplacement(openednode)
+                return self.get_deplacement(openednode).get_valeur()
             
             if openednode.enfant_gauche.get_valeur() != None:
                 bfsqueue.insert(0,openednode.get_gauche())
@@ -30,9 +30,8 @@ class BFSalgorithm:
                 bfsqueue.insert(0,openednode.get_haut())
 
     def get_deplacement(self,node):
-        while node.get_parent() != None:
+        while node.get_parent().get_parent() != None:
             node = node.get_parent()
-        print(node.get_valeur())
         return node
 
 
@@ -64,4 +63,4 @@ root = createarbre.Arbre(Mamatrice[3][4])
 root.Create_arbre(8)
 BFS = BFSalgorithm()
 #print(root.getvaleur())
-BFS.explorer(root,Mamatrice,poussmatrice)
+print(BFS.explorer(root,Mamatrice,poussmatrice))
