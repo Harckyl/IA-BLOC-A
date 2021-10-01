@@ -12,7 +12,7 @@ class BFSalgorithm:
             #print("valeur is ",openednode.get_valeur())
 
             if self.verification(openednode.get_valeur(),matrixpoussiere):
-                print(openednode.get_valeur())
+                #print(openednode.get_valeur())
                 return self.get_deplacement(openednode).get_valeur()
             if openednode.enfant_gauche != None:
                 if openednode.enfant_gauche.get_valeur() != None:

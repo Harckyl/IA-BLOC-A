@@ -12,17 +12,52 @@ class cleaningAgent(threading.Thread):
         self.test = 2
         self.position = 0
         self.choix = choix
+        self.points = 0
 
     def observeEnvironment(self):
-        env.environment.getChoice(self.position)
+        return environment.getChoice(self.position, rooms)
     
+    def action_choice(self, deplacement, etat, rooms):
+        if (deplacement == 0 and etat == "v"):
+            return 0
+        if (etat == "b" or etat == "bp"):
+            if(etat == "bp"):
+                rooms[int(self.position / 10)][self.position % 10] = "p"
+                self.points += 5
+                return 1
+            rooms[int(self.position / 10)][self.position % 10] = "v"
+            self.points += 5
+            return 1
+        if (etat == "p"):
+            rooms[int(self.position / 10)][self.position % 10] = "v"
+            self.points += 1
+            return 2
+        if (deplacement != 0 and etat == "v"):
+            self.points -= 1
+            return 3
+
     def run(self):
         while True:
             if(self.choix == 1):
                 test = BFS.BFSalgorithm()
                 root = create_arbre.Arbre(self.position)
                 root.Create_arbre(8)
-                print(test.explorer(root,Mamatrice,rooms))
+                deplacement = (test.explorer(root,Mamatrice,rooms))
+                etat = self.observeEnvironment()
+                action = self.action_choice(deplacement, etat, rooms)
+
+                if(deplacement != None and action == 3):
+                    self.position = deplacement
+                    deplacement = None
+                    print("le robot se déplace")
+                if(action == 0):
+                    print("le robot ne fait rien")
+                if(action == 1):
+                    print("le robot ramasse le bijou")
+                if(action == 2):
+                    print("le robot aspire une poussière")
+                print("la position du robot est en x: " + str(self.position % 10) + " et en y : " + str(int(self.position / 10)))
+                
             time.sleep(1)
         
 		
@@ -52,7 +87,5 @@ environment = env.roomsThread(maxRep,rooms)
 environment.start() # This actually causes the thread to run
 agent = cleaningAgent(1)
 agent.start()
-#test = threading.Thread(target=env.roomsThread.run, args=[rooms])
-#test.start()
-print(Astar.Astar(rooms, (0,0), (4,4))[1])
+#print(Astar.Astar(rooms, (0,0), (4,4))[1])
 print("DONE")

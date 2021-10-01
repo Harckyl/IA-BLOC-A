@@ -17,7 +17,6 @@ class roomsThread(threading.Thread):
 			timeToWait = random.randrange(1,2)
 			time.sleep(timeToWait)
 			self.rooms[random.randrange(0,4),random.randrange(0,4)] = random.choice(self.choices)
-			res = self.getChoice(11, self.rooms)
 			print(self.rooms)
 
 	def getChoice(self, position, rooms):
