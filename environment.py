@@ -20,6 +20,14 @@ class roomsThread(threading.Thread):
 			print(self.rooms)
 
 	def getChoice(self, position, rooms):
-		return rooms[int(position / 10), position % 10]
+		return rooms[int(position / 10)][position % 10]
+	
+	def cherche_but(self, rooms):
+		for x in range(5):
+			for y in range(5):
+				if(rooms[x][y] != "v"):
+					pos = int(str(x) + str(y))
+					return pos
+		return -11
 
 

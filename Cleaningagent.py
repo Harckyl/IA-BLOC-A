@@ -9,7 +9,6 @@ import time
 class cleaningAgent(threading.Thread):
     def __init__(self,choix):
         super(cleaningAgent, self).__init__()
-        self.test = 2
         self.position = 0
         self.choix = choix
         self.points = 0
@@ -38,25 +37,40 @@ class cleaningAgent(threading.Thread):
 
     def run(self):
         while True:
-            if(self.choix == 1):
-                test = BFS.BFSalgorithm()
-                root = create_arbre.Arbre(self.position)
-                root.Create_arbre(8)
+            test = BFS.BFSalgorithm()
+            root = create_arbre.Arbre(self.position)
+            deplacement = 0
+            root.Create_arbre(8)
+            if (self.choix == 1):
+                #on choisit le BFS
                 deplacement = (test.explorer(root,Mamatrice,rooms))
                 etat = self.observeEnvironment()
                 action = self.action_choice(deplacement, etat, rooms)
 
-                if(deplacement != None and action == 3):
-                    self.position = deplacement
-                    deplacement = None
-                    print("le robot se déplace")
-                if(action == 0):
-                    print("le robot ne fait rien")
-                if(action == 1):
-                    print("le robot ramasse le bijou")
-                if(action == 2):
-                    print("le robot aspire une poussière")
-                print("la position du robot est en x: " + str(self.position % 10) + " et en y : " + str(int(self.position / 10)))
+            if(self.choix == 2):
+                pos_but = environment.cherche_but(environment.rooms)
+                if (pos_but) != -11 and pos_but != self.position:    
+                    direction = Astar.Astar(rooms, (int(self.position % 10),int(self.position / 10)), (int(pos_but % 10),int(pos_but/ 10)))[1]
+                    deplacement += 10 * direction[1]
+                    deplacement += 1 * direction[0]
+                else:
+                    deplacement = 0 
+                print(deplacement)
+                etat = self.observeEnvironment()
+                print(etat)
+                action = self.action_choice(deplacement, etat, rooms)
+
+            if(deplacement != None and action == 3):
+                self.position = deplacement
+                deplacement = None
+                print("le robot se déplace")
+            if(action == 0):
+                print("le robot ne fait rien")
+            if(action == 1):
+                print("le robot ramasse le bijou")
+            if(action == 2):
+                print("le robot aspire une poussière")
+            print("la position du robot est en x: " + str(self.position % 10) + " et en y : " + str(int(self.position / 10)))
                 
             time.sleep(1)
         
@@ -85,7 +99,7 @@ print(rooms)
 maxRep = 30
 environment = env.roomsThread(maxRep,rooms)
 environment.start() # This actually causes the thread to run
-agent = cleaningAgent(1)
+agent = cleaningAgent(2)
 agent.start()
 #print(Astar.Astar(rooms, (0,0), (4,4))[1])
 print("DONE")

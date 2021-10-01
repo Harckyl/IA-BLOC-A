@@ -35,7 +35,7 @@ class BFSalgorithm:
 
 
     def verification(self,coordonnees,matrixpoussiere):
-        xobject = int(int(coordonnees)/10)
+        xobject = int((coordonnees)/10)
         yobject = int(coordonnees)%10
         strobject = matrixpoussiere[xobject][yobject]
         if strobject == "b" or strobject == "p" or strobject == "bp":
