@@ -7,6 +7,7 @@ class roomsThread(threading.Thread):
 	def __init__(self,high,rooms):
 		super(roomsThread, self).__init__()
 		self.high=high
+		self.porprete = 0
 		self.total=0
 		self.choices = ["b", "bp", "p", "p", "p", "p","v", "v", "v", "v", "v", "v", "v", "v", "v", "v"]
 		self.rooms = rooms

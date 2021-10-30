@@ -43,19 +43,21 @@ class cleaningAgent(threading.Thread):
             root.Create_arbre(8)
             if (self.choix == 1):
                 #on choisit le BFS
-                deplacement = (test.explorer(root,Mamatrice,rooms))
                 etat = self.observeEnvironment()
                 action = self.action_choice(deplacement, etat, rooms)
-
+                deplacement = (test.explorer(root,Mamatrice,rooms))
+                
             if(self.choix == 2):
+                #on choisit l'A*
+                direction = 0
                 pos_but = environment.cherche_but(environment.rooms)
                 if (pos_but) != -11 and pos_but != self.position:    
-                    direction = Astar.Astar(rooms, (int(self.position % 10),int(self.position / 10)), (int(pos_but % 10),int(pos_but/ 10)))[1]
-                    deplacement += 10 * direction[1]
-                    deplacement += 1 * direction[0]
+                    direction = Astar.Astar(rooms, (int(self.position % 10),int(self.position / 10)), (int(pos_but % 10),int(pos_but/ 10)))
+                    deplacement += 10 * direction[1][1]
+                    deplacement += 1 * direction[1][0]
                 else:
                     deplacement = 0 
-                print(deplacement)
+    
                 etat = self.observeEnvironment()
                 print(etat)
                 action = self.action_choice(deplacement, etat, rooms)
