@@ -16,6 +16,8 @@ unassigned_variables = [[0 for i in range(9)] for i in range(9)]
 
 Domain = [1,2,3,4,5,6,7,8,9]
 
+#fonctionnement = variable = 1 ==> tableau[0][1]
+#variable = 10 ==> tableau[1][0]
 variable = 77
 
 def print_board(bo):
